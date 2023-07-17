@@ -1,13 +1,30 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { inject, onMounted, ref } from "vue";
 import { useBox } from "../composables/useBox";
-import { Vector3 } from "@babylonjs/core";
+import { Scene, Vector3 } from "@babylonjs/core";
 
-type Props = { x: number; y: number; z: number };
 
-const props = defineProps<Props>();
+const pos = defineProps({
+  position: [Number, Number, Number]
+});
 
-onMounted(() => {
-  useBox(ref(new Vector3(props.x, props.y, props.z)));
+const scene = inject("BabylonScene") as Scene;
+
+onMounted(async () => {
+
+  if (!pos) {
+    return;
+  }
+
+  await new Promise(resolve => {
+    setTimeout(resolve, 3000)
+  })
+
+
+  console.log(scene);
+
+  useBox(ref(new Vector3()), scene);
 });
 </script>
+
+<template></template>

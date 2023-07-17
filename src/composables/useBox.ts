@@ -1,9 +1,9 @@
-import { MeshBuilder, Vector3 } from "@babylonjs/core";
+import { MeshBuilder, Scene, Vector3 } from "@babylonjs/core";
 import { Ref, watchEffect } from "vue";
 
 type UseBoxProps = Ref<Vector3>;
 
-const useBox = (props: UseBoxProps) => {
+const useBox = (props: UseBoxProps, scene:Scene) => {
   const box = MeshBuilder.CreateBox("box", { size: 0.1 });
   box.position = props.value;
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, provide, ref } from "vue";
 import { Engine, Scene } from "@babylonjs/core";
+
+import Box from "./box.vue"
 
 const renderCanvas = ref<HTMLCanvasElement>();
 
@@ -11,6 +13,8 @@ onMounted(() => {
 
   const engine = new Engine(renderCanvas.value, true);
   const scene = new Scene(engine);
+
+  provide("BabylonScene", scene);
 
   scene.createDefaultCameraOrLight(true, true, true);
   scene.createDefaultEnvironment();
@@ -27,6 +31,7 @@ onMounted(() => {
 
 <template>
   <canvas id="renderCanvas" ref="renderCanvas"></canvas>
+  <Box />
 </template>
 
 <style scoped lang="scss">
