@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { Engine, MeshBuilder, Scene, Vector3 } from "@babylonjs/core";
+import { Engine, Scene } from "@babylonjs/core";
 
 const renderCanvas = ref<HTMLCanvasElement>();
 
@@ -14,9 +14,6 @@ onMounted(() => {
 
   scene.createDefaultCameraOrLight(true, true, true);
   scene.createDefaultEnvironment();
-
-  const box = MeshBuilder.CreateBox("box", { size: 0.1 });
-  box.position = new Vector3(0, 0.05, 0);
 
   engine.runRenderLoop(() => {
     scene.render();
