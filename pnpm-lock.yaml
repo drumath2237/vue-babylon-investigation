@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@babylonjs/core':
+    specifier: ^6.12.3
+    version: 6.12.3
   vue:
     specifier: ^3.3.4
     version: 3.3.4
@@ -50,6 +53,10 @@ packages:
       '@babel/helper-string-parser': 7.22.5
       '@babel/helper-validator-identifier': 7.22.5
       to-fast-properties: 2.0.0
+
+  /@babylonjs/core@6.12.3:
+    resolution: {integrity: sha512-p1di605M2Pa5+YiHbydGJ3PA4nUWSlmu79agL3mcsq7s8zC5VN/HaK1uNSicYI9LhVfPF6bDsVGHqCXxEkRsFQ==}
+    dev: false
 
   /@esbuild/android-arm64@0.18.13:
     resolution: {integrity: sha512-j7NhycJUoUAG5kAzGf4fPWfd17N6SM3o1X6MlXVqfHvs2buFraCJzos9vbeWjLxOyBKHyPOnuCuipbhvbYtTAg==}
