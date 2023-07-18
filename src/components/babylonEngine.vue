@@ -1,20 +1,24 @@
 <script setup lang="ts">
-import { onMounted, provide, ref } from "vue";
+import { onMounted, provide, ref, useSlots } from "vue";
 import { Engine, Scene } from "@babylonjs/core";
 
-import Box from "./box.vue"
-
 const renderCanvas = ref<HTMLCanvasElement>();
+provide("BabylonScene", 1);
+
+const slots = useSlots();
+
+(slots as any).default()[0].props = [0, 10, 0]
 
 onMounted(() => {
   if (!renderCanvas.value) {
+    console.log("no canvas");
+
     return;
   }
 
   const engine = new Engine(renderCanvas.value, true);
   const scene = new Scene(engine);
 
-  provide("BabylonScene", scene);
 
   scene.createDefaultCameraOrLight(true, true, true);
   scene.createDefaultEnvironment();
@@ -26,12 +30,13 @@ onMounted(() => {
   window.addEventListener("resize", () => {
     engine.resize();
   });
+
 });
 </script>
 
 <template>
   <canvas id="renderCanvas" ref="renderCanvas"></canvas>
-  <Box />
+  <slot />
 </template>
 
 <style scoped lang="scss">

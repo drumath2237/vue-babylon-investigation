@@ -5,7 +5,7 @@ import Box from "./components/box.vue";
 
 <template>
   <BabylonEngine>
-    <Box />
+    <Box :position="[0, 0, 0]"></Box>
   </BabylonEngine>
 </template>
 

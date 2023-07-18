@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { inject, onMounted, ref } from "vue";
+import { onMounted, ref, useSlots } from "vue";
 import { useBox } from "../composables/useBox";
-import { Scene, Vector3 } from "@babylonjs/core";
+import { Vector3 } from "@babylonjs/core";
 
+type Prop = { position: [number, number, number] };
 
-const pos = defineProps({
-  position: [Number, Number, Number]
-});
-
-const scene = inject("BabylonScene") as Scene;
+const pos = defineProps<Prop>();
 
 onMounted(async () => {
 
@@ -16,15 +13,16 @@ onMounted(async () => {
     return;
   }
 
+
   await new Promise(resolve => {
-    setTimeout(resolve, 3000)
+    setTimeout(resolve, 500)
   })
 
-
-  console.log(scene);
-
-  useBox(ref(new Vector3()), scene);
+  useBox(ref(new Vector3(pos.position[0], pos.position[1], pos.position[2])));
 });
 </script>
 
-<template></template>
+<template>
+  <slot />
+  {{ useSlots }}
+</template>
