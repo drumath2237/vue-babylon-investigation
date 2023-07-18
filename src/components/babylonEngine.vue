@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { onMounted, provide, ref, useSlots } from "vue";
+import { onMounted, provide, ref } from "vue";
 import { Engine, Scene } from "@babylonjs/core";
 
 const renderCanvas = ref<HTMLCanvasElement>();
 provide("BabylonScene", 1);
 
-const slots = useSlots();
 
-(slots as any).default()[0].props = [0, 10, 0]
+const childRef = ref();
 
 onMounted(() => {
   if (!renderCanvas.value) {
@@ -15,6 +14,8 @@ onMounted(() => {
 
     return;
   }
+
+  console.log(childRef)
 
   const engine = new Engine(renderCanvas.value, true);
   const scene = new Scene(engine);
@@ -36,7 +37,7 @@ onMounted(() => {
 
 <template>
   <canvas id="renderCanvas" ref="renderCanvas"></canvas>
-  <slot />
+  <slot ref="childRef" />
 </template>
 
 <style scoped lang="scss">
