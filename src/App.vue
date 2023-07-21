@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import BabylonEngine from "./components/babylonEngine.vue";
+import BabylonScene from "./components/babylonScene.vue";
 import Box from "./components/box.vue";
 </script>
 
 <template>
-  <BabylonEngine>
-    <Box :position="[0, 0, 0]">
-      aaa
-    </Box>
-  </BabylonEngine>
+  <BabylonScene :antialias="false">
+    <Box :position="[0, 0.05, 0]" :size="0.1"></Box>
+  </BabylonScene>
 </template>
-
-<style scoped lang="scss"></style>
