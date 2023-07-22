@@ -3,7 +3,7 @@ import { Ref, watchEffect } from "vue";
 
 type UseBoxProps = Ref<Vector3>;
 
-const useBox = (props: UseBoxProps, scene?:Scene) => {
+const useBox = (props: UseBoxProps, scene?: Scene) => {
   const box = MeshBuilder.CreateBox("box", { size: 0.1 }, scene);
   box.position = props.value;
 

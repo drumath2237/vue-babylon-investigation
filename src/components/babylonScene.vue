@@ -3,17 +3,18 @@ import { InjectionKey, ref, defineComponent, Ref } from "vue";
 import { Engine, Scene } from "@babylonjs/core";
 
 export interface IBabylonScene {
-  engine: Engine,
-  scene: Scene,
-  isInit: Ref<boolean>
+  engine: Engine;
+  scene: Scene;
+  isInit: Ref<boolean>;
 }
 
-export const BabylonSceneInjectionKey: InjectionKey<IBabylonScene> = Symbol("key-babylon-scene");
+export const BabylonSceneInjectionKey: InjectionKey<IBabylonScene> =
+  Symbol("key-babylon-scene");
 
 export default defineComponent({
   name: "BabylonScene",
   props: {
-    antialias: Boolean
+    antialias: Boolean,
   },
 
   setup() {
@@ -26,12 +27,11 @@ export default defineComponent({
       engine,
       scene,
       isInit,
-      renderCanvas
-    }
+      renderCanvas,
+    };
   },
 
   mounted() {
-
     if (!this.renderCanvas) {
       return;
     }
@@ -57,10 +57,10 @@ export default defineComponent({
 
   provide() {
     return {
-      [BabylonSceneInjectionKey as symbol]: this
-    }
-  }
-})
+      [BabylonSceneInjectionKey as symbol]: this,
+    };
+  },
+});
 </script>
 
 <template>
