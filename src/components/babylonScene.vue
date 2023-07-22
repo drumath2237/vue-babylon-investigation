@@ -65,7 +65,7 @@ export default defineComponent({
 
 <template>
   <canvas id="renderCanvas" ref="renderCanvas"></canvas>
-  <slot ref="childRef" />
+  <slot />
 </template>
 
 <style scoped lang="scss">
