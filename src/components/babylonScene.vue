@@ -1,11 +1,14 @@
 <script lang="ts">
-import { InjectionKey, ref, defineComponent, Ref } from "vue";
+import { InjectionKey, ref, defineComponent } from "vue";
 import { Engine, Scene } from "@babylonjs/core";
+import { EventSystem } from "../utils/eventSystem";
+
+type OnSceneAndEngineInitEvent = EventSystem<{ scene: Scene; engine: Engine }>;
 
 export interface IBabylonScene {
   engine: Engine;
   scene: Scene;
-  isInit: Ref<boolean>;
+  onInit: OnSceneAndEngineInitEvent;
 }
 
 export const BabylonSceneInjectionKey: InjectionKey<IBabylonScene> =
@@ -18,16 +21,16 @@ export default defineComponent({
   },
 
   setup() {
-    const isInit = ref(false);
     let scene: Scene | undefined;
     let engine: Engine | undefined;
     const renderCanvas = ref<HTMLCanvasElement>();
+    const onInit: OnSceneAndEngineInitEvent = new EventSystem();
 
     return {
       engine,
       scene,
-      isInit,
       renderCanvas,
+      onInit,
     };
   },
 
@@ -50,9 +53,9 @@ export default defineComponent({
       engine.resize();
     });
 
-    this.isInit = true;
     this.engine = engine;
     this.scene = scene;
+    this.onInit.notify({ scene, engine });
   },
 
   provide() {

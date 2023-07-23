@@ -1,4 +1,4 @@
-import { PropType, defineComponent, inject, watch } from "vue";
+import { PropType, defineComponent, inject } from "vue";
 import { BabylonSceneInjectionKey } from "./babylonScene.vue";
 import { MeshBuilder, Vector3 } from "@babylonjs/core";
 
@@ -24,26 +24,19 @@ export default defineComponent({
       return;
     }
 
-    watch(
-      () => babylonScene.isInit,
-      (isInit) => {
-        if (!isInit) {
-          return;
-        }
+    babylonScene.onInit.addListener(() => {
+      const box = MeshBuilder.CreateBox(
+        "box",
+        { size: props.size },
+        babylonScene.scene,
+      );
 
-        const box = MeshBuilder.CreateBox(
-          "box",
-          { size: props.size },
-          babylonScene.scene,
-        );
-
-        box.position = new Vector3(
-          props.position.x,
-          props.position.y,
-          props.position.z,
-        );
-      },
-    );
+      box.position = new Vector3(
+        props.position.x,
+        props.position.y,
+        props.position.z,
+      );
+    });
   },
 
   render() {
