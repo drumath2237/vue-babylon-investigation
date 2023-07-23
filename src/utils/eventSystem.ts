@@ -1,6 +1,6 @@
 export class EventSystemVoid {
-  eventTarget: EventTarget;
-  eventName: string;
+  private readonly eventTarget: EventTarget;
+  private readonly eventName: string;
 
   constructor() {
     this.eventTarget = new EventTarget();

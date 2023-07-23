@@ -1,12 +1,20 @@
-import { PropType, defineComponent, inject } from "vue";
+import { InjectionKey, PropType, defineComponent, inject } from "vue";
 import { BabylonSceneInjectionKey } from "./babylonScene.vue";
-import { MeshBuilder, Vector3 } from "@babylonjs/core";
+import { Mesh, MeshBuilder, Vector3 } from "@babylonjs/core";
+import { EventSystem } from "../utils/eventSystem";
 
 interface IVector3 {
   x: number;
   y: number;
   z: number;
 }
+
+export interface BoxInterface {
+  onInit: EventSystem<Mesh>;
+}
+
+export const BoxInjectionKey: InjectionKey<BoxInterface> =
+  Symbol("box-injection-key");
 
 export default defineComponent({
   name: "Box",
@@ -18,7 +26,21 @@ export default defineComponent({
     size: Number,
   },
 
-  setup(props) {
+  provide() {
+    return {
+      [BoxInjectionKey as symbol]: this,
+    };
+  },
+
+  setup() {
+    const onInit = new EventSystem<Mesh>();
+
+    return {
+      onInit,
+    };
+  },
+
+  mounted() {
     const babylonScene = inject(BabylonSceneInjectionKey);
     if (!babylonScene) {
       return;
@@ -27,15 +49,17 @@ export default defineComponent({
     babylonScene.onInit.addListener(() => {
       const box = MeshBuilder.CreateBox(
         "box",
-        { size: props.size },
+        { size: this.$props.size },
         babylonScene.scene,
       );
 
       box.position = new Vector3(
-        props.position.x,
-        props.position.y,
-        props.position.z,
+        this.$props.position.x,
+        this.$props.position.y,
+        this.$props.position.z,
       );
+
+      this.onInit.notify(box);
     });
   },
 
