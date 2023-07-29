@@ -42,7 +42,7 @@ export default defineComponent({
     const engine = new Engine(this.renderCanvas, this.$props.antialias);
     const scene = new Scene(engine);
 
-    scene.createDefaultCameraOrLight(true, true, true);
+    scene.createDefaultLight(true);
     scene.createDefaultEnvironment();
 
     engine.runRenderLoop(() => {
