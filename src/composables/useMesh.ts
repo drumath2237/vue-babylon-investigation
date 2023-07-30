@@ -6,7 +6,8 @@ import { babyuewMeshInjectionKey } from "../data/injectionKeys";
 
 export const useMesh = (meshFactory: () => Mesh) => {
   const onInit = new EventSystem<Mesh>();
-  provide(babyuewMeshInjectionKey, { onInit: onInit });
+  let mesh: Mesh | undefined = undefined;
+  provide(babyuewMeshInjectionKey, { onInit, mesh });
 
   onMounted(() => {
     const babyuewScene = inject(BabylonSceneInjectionKey);
@@ -15,8 +16,9 @@ export const useMesh = (meshFactory: () => Mesh) => {
     }
 
     babyuewScene.onInit.addListener(() => {
-      const mesh = meshFactory();
-      onInit.notify(mesh);
+      const createdMesh = meshFactory();
+      mesh = createdMesh;
+      onInit.notify(createdMesh);
     });
   });
 

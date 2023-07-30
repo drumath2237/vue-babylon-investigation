@@ -55,8 +55,6 @@ export default defineComponent({
       return;
     }
 
-    console.log("Hellooo");
-
     babylonScene.onInit.addListener(({ detail }) => {
       const scene = detail.scene;
       const camera = new ArcRotateCamera(
