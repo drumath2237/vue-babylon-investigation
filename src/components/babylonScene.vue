@@ -1,6 +1,6 @@
 <script lang="ts">
 import { InjectionKey, ref, defineComponent } from "vue";
-import { Engine, Scene } from "@babylonjs/core";
+import { DirectionalLight, Engine, Scene, Vector3 } from "@babylonjs/core";
 import { EventSystem } from "../utils/eventSystem";
 
 type OnSceneAndEngineInitEvent = EventSystem<{ scene: Scene; engine: Engine }>;
@@ -42,7 +42,13 @@ export default defineComponent({
     const engine = new Engine(this.renderCanvas, this.$props.antialias);
     const scene = new Scene(engine);
 
-    scene.createDefaultLight(true);
+    const light = new DirectionalLight(
+      "light",
+      new Vector3(0.5, -1, -0.5),
+      scene,
+    );
+    light.intensity = 1.2;
+
     scene.createDefaultEnvironment();
 
     engine.runRenderLoop(() => {
