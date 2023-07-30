@@ -1,6 +1,6 @@
 import { Material } from "@babylonjs/core";
 import { EventSystem } from "../utils/eventSystem";
-import { inject, onMounted, provide } from "vue";
+import { inject, provide } from "vue";
 import {
   babyuewMaterialInjectionKey,
   babyuewMeshInjectionKey,
@@ -11,15 +11,13 @@ export const useMaterial = (materialFactory: () => Material) => {
   let material: Material | undefined = undefined;
   provide(babyuewMaterialInjectionKey, { onInit, material });
 
-  onMounted(() => {
-    const injectedMesh = inject(babyuewMeshInjectionKey);
-    injectedMesh?.onInit.addListener(({ detail }) => {
-      const createdMaterial = materialFactory();
-      detail.material = createdMaterial;
-      material = createdMaterial;
-      onInit.notify(createdMaterial);
-    });
+  const injectedMesh = inject(babyuewMeshInjectionKey);
+  injectedMesh?.onInit.addListener(({ detail }) => {
+    const createdMaterial = materialFactory();
+    detail.material = createdMaterial;
+    material = createdMaterial;
+    onInit.notify(createdMaterial);
   });
 
-  return {    onInit, material  }
+  return { onInit, material };
 };
