@@ -1,7 +1,7 @@
 import { Color3, Material, StandardMaterial } from "@babylonjs/core";
 import { PropType, defineComponent, InjectionKey, inject } from "vue";
-import { BoxInjectionKey } from "./box";
 import { EventSystem } from "../utils/eventSystem";
+import { babyuewMeshInjectionKey } from "../data/injectionKeys";
 
 export interface StandardMaterialInterface {
   onInit: EventSystem<Material>;
@@ -10,18 +10,12 @@ export interface StandardMaterialInterface {
 export const StandardMaterialInjectionKey: InjectionKey<StandardMaterialInterface> =
   Symbol("babyuew-standard-material-injection-key");
 
-interface IColor {
-  r: number;
-  g: number;
-  b: number;
-}
-
 export default defineComponent({
   name: "StandardMaterial",
 
   props: {
     color: {
-      type: Object as PropType<IColor>,
+      type: Object as PropType<{ r: number; g: number; b: number }>,
       required: true,
     },
   },
@@ -35,12 +29,12 @@ export default defineComponent({
   },
 
   mounted() {
-    const injectedBox = inject(BoxInjectionKey);
-    if (!injectedBox) {
+    const injectedMesh = inject(babyuewMeshInjectionKey);
+    if (!injectedMesh) {
       return;
     }
 
-    injectedBox.onInit.addListener(({ detail }) => {
+    injectedMesh.onInit.addListener(({ detail }) => {
       const material = new StandardMaterial("standard material");
       material.diffuseColor = new Color3(
         this.$props.color.r,
