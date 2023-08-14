@@ -2,7 +2,7 @@
 import BabylonScene from "./components/babylonScene.vue";
 import Box from "./components/box.vue";
 import StandardMaterial from "./components/standardMaterial.vue";
-import ArcRotateCamera from "./components/arcRotateCamera";
+import ArcRotateCamera from "./components/arcRotateCamera.vue";
 import Sphere from "./components/sphere.vue";
 </script>
 
