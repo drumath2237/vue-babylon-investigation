@@ -5,19 +5,22 @@ import { EventSystem } from "../utils/eventSystem";
 
 type OnSceneAndEngineInitEvent = EventSystem<{ scene: Scene; engine: Engine }>;
 
-export interface IBabylonScene {
+export interface BabyuewSceneComponent {
   engine: Engine;
   scene: Scene;
   onInit: OnSceneAndEngineInitEvent;
 }
 
-export const BabylonSceneInjectionKey: InjectionKey<IBabylonScene> =
+export const BabylonSceneInjectionKey: InjectionKey<BabyuewSceneComponent> =
   Symbol("key-babylon-scene");
 
 export default defineComponent({
   name: "BabylonScene",
   props: {
-    antialias: Boolean,
+    antialias: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup() {

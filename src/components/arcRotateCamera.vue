@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PropType } from "vue";
-import { BabyuewCameraComponent } from "../data/objectInterfaces";
+import { BabyuewCameraComponent } from "../data/injectionKeys";
 import { useCamera } from "../composables/useCamera";
 import { ArcRotateCamera, Vector3 } from "@babylonjs/core";
 
