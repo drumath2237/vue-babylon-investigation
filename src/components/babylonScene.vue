@@ -1,18 +1,8 @@
 <script lang="ts">
-import { InjectionKey, ref, defineComponent } from "vue";
+import { ref, defineComponent } from "vue";
 import { DirectionalLight, Engine, Scene, Vector3 } from "@babylonjs/core";
 import { EventSystem } from "../utils/eventSystem";
-
-type OnSceneAndEngineInitEvent = EventSystem<{ scene: Scene; engine: Engine }>;
-
-export interface BabyuewSceneComponent {
-  engine: Engine;
-  scene: Scene;
-  onInit: OnSceneAndEngineInitEvent;
-}
-
-export const BabylonSceneInjectionKey: InjectionKey<BabyuewSceneComponent> =
-  Symbol("key-babylon-scene");
+import { BabyuewSceneInjectionKey } from "../data/injectionKeys";
 
 export default defineComponent({
   name: "BabylonScene",
@@ -27,8 +17,10 @@ export default defineComponent({
     let scene: Scene | undefined;
     let engine: Engine | undefined;
     const renderCanvas = ref<HTMLCanvasElement>();
-    const onInit: OnSceneAndEngineInitEvent = new EventSystem();
-
+    const onInit = new EventSystem<{
+      scene?: Scene;
+      engine?: Engine;
+    }>();
     return {
       engine,
       scene,
@@ -69,7 +61,7 @@ export default defineComponent({
 
   provide() {
     return {
-      [BabylonSceneInjectionKey as symbol]: this,
+      [BabyuewSceneInjectionKey as symbol]: this,
     };
   },
 });
