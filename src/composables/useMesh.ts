@@ -13,9 +13,8 @@ export const useMesh = (meshFactory: () => Mesh) => {
 
   const babyuewScene = inject(BabyuewSceneInjectionKey);
   babyuewScene?.onInit.addListener(() => {
-    const createdMesh = meshFactory();
-    mesh = createdMesh;
-    onInit.notify(createdMesh);
+    mesh = meshFactory();
+    onInit.notify(mesh);
   });
 
   return {
