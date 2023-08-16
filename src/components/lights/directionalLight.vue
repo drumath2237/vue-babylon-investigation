@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { DirectionalLight, Vector3 } from "@babylonjs/core";
+import { DirectionalLight } from "@babylonjs/core";
 import { PropType } from "vue";
 import { useLight } from "../../composables/useLight";
+import { arr3ToVector3 } from "../../utils/dataConversion";
 
 const props = defineProps({
   name: String,
   direction: {
-    type: Object as PropType<Vector3>,
-    default: Vector3.Zero(),
+    type: Object as PropType<[number, number, number]>,
     required: true,
   },
   intensity: {
@@ -20,7 +20,7 @@ const props = defineProps({
 const { light, onInit } = useLight((scene) => {
   const light = new DirectionalLight(
     props.name ?? "light",
-    props.direction,
+    arr3ToVector3(props.direction),
     scene,
   );
   light.intensity = props.intensity;

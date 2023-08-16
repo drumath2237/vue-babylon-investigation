@@ -5,7 +5,6 @@ import StandardMaterial from "./components/materials/standardMaterial.vue";
 import ArcRotateCamera from "./components/cameras/arcRotateCamera.vue";
 import Sphere from "./components/meshes/sphere.vue";
 import DirectionalLight from "./components/lights/directionalLight.vue";
-import { Vector3 } from "@babylonjs/core";
 </script>
 
 <template>
@@ -21,7 +20,7 @@ import { Vector3 } from "@babylonjs/core";
 
     <DirectionalLight
       :name="'light'"
-      :direction="new Vector3(0.25, -1, -0.6)"
+      :direction="[0.25, -1, -0.6]"
       :intensity="1.2"
     ></DirectionalLight>
 
