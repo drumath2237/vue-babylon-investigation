@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import BabylonScene from "./components/babylonScene.vue";
-import Box from "./components/box.vue";
-import StandardMaterial from "./components/standardMaterial.vue";
-import ArcRotateCamera from "./components/arcRotateCamera.vue";
-import Sphere from "./components/sphere.vue";
-import DirectionalLight from "./components/directionalLight.vue";
+import Box from "./components/meshes/box.vue";
+import StandardMaterial from "./components/materials/standardMaterial.vue";
+import ArcRotateCamera from "./components/cameras/arcRotateCamera.vue";
+import Sphere from "./components/meshes/sphere.vue";
+import DirectionalLight from "./components/lights/directionalLight.vue";
 import { Vector3 } from "@babylonjs/core";
 </script>
 

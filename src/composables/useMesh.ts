@@ -3,7 +3,7 @@ import { EventSystem } from "../utils/eventSystem";
 import { inject, provide } from "vue";
 import {
   babyuewMeshInjectionKey,
-  BabyuewSceneInjectionKey,
+  babyuewSceneInjectionKey,
 } from "../data/injectionKeys";
 
 export const useMesh = (meshFactory: () => Mesh) => {
@@ -11,7 +11,7 @@ export const useMesh = (meshFactory: () => Mesh) => {
   let mesh: Mesh | undefined = undefined;
   provide(babyuewMeshInjectionKey, { onInit, mesh });
 
-  const babyuewScene = inject(BabyuewSceneInjectionKey);
+  const babyuewScene = inject(babyuewSceneInjectionKey);
   babyuewScene?.onInit.addListener(() => {
     mesh = meshFactory();
     onInit.notify(mesh);

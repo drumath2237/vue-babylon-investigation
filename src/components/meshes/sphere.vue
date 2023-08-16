@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { MeshBuilder, Vector3 } from "@babylonjs/core";
-import { useMesh } from "../composables/useMesh";
+import { useMesh } from "../../composables/useMesh";
 import { PropType } from "vue";
 
 const props = defineProps({

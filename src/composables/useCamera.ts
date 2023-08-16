@@ -3,7 +3,7 @@ import { EventSystem } from "../utils/eventSystem";
 import { inject, provide } from "vue";
 import {
   babyuewCameraInjectionKey,
-  BabyuewSceneInjectionKey,
+  babyuewSceneInjectionKey,
 } from "../data/injectionKeys";
 
 export const useCamera = (cameraFactory: () => Camera) => {
@@ -11,7 +11,7 @@ export const useCamera = (cameraFactory: () => Camera) => {
   let camera: Camera | undefined = undefined;
   provide(babyuewCameraInjectionKey, { onInit, camera });
 
-  const injectedScene = inject(BabyuewSceneInjectionKey);
+  const injectedScene = inject(babyuewSceneInjectionKey);
   injectedScene?.onInit.addListener(() => {
     const createdCamera = cameraFactory();
     camera = createdCamera;

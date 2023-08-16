@@ -2,7 +2,7 @@
 import { ref, defineComponent } from "vue";
 import { Engine, Scene } from "@babylonjs/core";
 import { EventSystem } from "../utils/eventSystem";
-import { BabyuewSceneInjectionKey } from "../data/injectionKeys";
+import { babyuewSceneInjectionKey } from "../data/injectionKeys";
 
 export default defineComponent({
   name: "BabylonScene",
@@ -54,7 +54,7 @@ export default defineComponent({
 
   provide() {
     return {
-      [BabyuewSceneInjectionKey as symbol]: this,
+      [babyuewSceneInjectionKey as symbol]: this,
     };
   },
 });

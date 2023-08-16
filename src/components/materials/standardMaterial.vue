@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Color3, StandardMaterial } from "@babylonjs/core";
-import { useMaterial } from "../composables/useMaterial";
+import { useMaterial } from "../../composables/useMaterial";
 import { PropType } from "vue";
 
 const props = defineProps({

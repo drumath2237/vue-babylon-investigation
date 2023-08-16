@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { DirectionalLight, Vector3 } from "@babylonjs/core";
 import { PropType } from "vue";
-import { useLight } from "../composables/useLight";
+import { useLight } from "../../composables/useLight";
 
 const props = defineProps({
   name: String,
