@@ -1,6 +1,6 @@
 <script lang="ts">
 import { ref, defineComponent } from "vue";
-import { DirectionalLight, Engine, Scene, Vector3 } from "@babylonjs/core";
+import { Engine, Scene } from "@babylonjs/core";
 import { EventSystem } from "../utils/eventSystem";
 import { BabyuewSceneInjectionKey } from "../data/injectionKeys";
 
@@ -36,13 +36,6 @@ export default defineComponent({
 
     const engine = new Engine(this.renderCanvas, this.$props.antialias);
     const scene = new Scene(engine);
-
-    const light = new DirectionalLight(
-      "light",
-      new Vector3(0.5, -1, -0.5),
-      scene,
-    );
-    light.intensity = 1.2;
 
     scene.createDefaultEnvironment();
 

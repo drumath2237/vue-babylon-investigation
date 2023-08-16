@@ -4,6 +4,8 @@ import Box from "./components/box.vue";
 import StandardMaterial from "./components/standardMaterial.vue";
 import ArcRotateCamera from "./components/arcRotateCamera.vue";
 import Sphere from "./components/sphere.vue";
+import DirectionalLight from "./components/directionalLight.vue";
+import { Vector3 } from "@babylonjs/core";
 </script>
 
 <template>
@@ -16,6 +18,12 @@ import Sphere from "./components/sphere.vue";
       :target="{ x: 0, y: 0.05, z: 0 }"
     >
     </ArcRotateCamera>
+
+    <DirectionalLight
+      :name="'light'"
+      :direction="new Vector3(0.25, -1, -0.6)"
+      :intensity="1.2"
+    ></DirectionalLight>
 
     <Box :name="'my-box'" :position="{ x: 0, y: 0.05, z: 0 }" :size="0.1">
       <StandardMaterial :color="{ r: 0, g: 1, b: 1 }"></StandardMaterial>
