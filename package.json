@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "compile": "vue-tsc",
+    "build": "pnpm compile && vite build",
     "preview": "vite preview",
     "lint": "eslint --fix src/*.{ts,vue} && eslint --fix src/**/*.{ts,vue}",
     "format": "prettier -w src/*.{ts,vue} && prettier -w src/**/*.{ts,vue}",
-    "fix": "yarn format && yarn lint"
+    "fix": "pnpm format && pnpm lint"
   },
   "dependencies": {
     "@babylonjs/core": "^6.14.0",
