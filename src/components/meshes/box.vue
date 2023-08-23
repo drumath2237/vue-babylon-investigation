@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { PropType } from "vue";
+import { PropType, watch } from "vue";
 import { useMesh } from "../../composables/useMesh";
 import { MeshBuilder, Vector3 } from "@babylonjs/core";
+import { xyzToVector3 } from "../../utils/dataConversion";
 
 const props = defineProps({
   name: {
@@ -16,7 +17,7 @@ const props = defineProps({
   size: Number,
 });
 
-const { onInit } = useMesh(() => {
+const { onInit, mesh } = useMesh(() => {
   const box = MeshBuilder.CreateBox(props.name, { size: props.size });
 
   const position = props.position;
@@ -25,6 +26,15 @@ const { onInit } = useMesh(() => {
   }
 
   return box;
+});
+
+watch(props, () => {
+  console.log(mesh);
+
+  if (mesh) {
+    mesh.position = xyzToVector3(props.position);
+  }
+  console.log(props.position);
 });
 
 defineExpose({ onInit });

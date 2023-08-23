@@ -8,7 +8,7 @@ import {
 
 export const useMesh = (meshFactory: () => Mesh) => {
   const onInit = new EventSystem<Mesh>();
-  let mesh: Mesh | undefined = undefined;
+  let mesh: Mesh | undefined;
   provide(babyuewMeshInjectionKey, { onInit, mesh });
 
   const babyuewScene = inject(babyuewSceneInjectionKey);
