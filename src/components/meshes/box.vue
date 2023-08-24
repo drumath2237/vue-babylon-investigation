@@ -17,7 +17,7 @@ const props = defineProps({
   size: Number,
 });
 
-const { onInit, mesh } = useMesh(() => {
+const { onInit, getMesh } = useMesh(() => {
   const box = MeshBuilder.CreateBox(props.name, { size: props.size });
 
   const position = props.position;
@@ -28,13 +28,12 @@ const { onInit, mesh } = useMesh(() => {
   return box;
 });
 
-watch(props, () => {
+watch(props.position, (position) => {
+  const mesh = getMesh();
   console.log(mesh);
-
   if (mesh) {
-    mesh.position = xyzToVector3(props.position);
+    mesh.position = xyzToVector3(position);
   }
-  console.log(props.position);
 });
 
 defineExpose({ onInit });
