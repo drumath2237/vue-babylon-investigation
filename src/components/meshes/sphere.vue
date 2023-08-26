@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MeshBuilder, Vector3 } from "@babylonjs/core";
+import { MeshBuilder } from "@babylonjs/core";
 import { useMesh } from "../../composables/useMesh";
 import { PropType, watch } from "vue";
 import { xyzToVector3 } from "../../utils/dataConversion";
@@ -15,10 +15,7 @@ const props = defineProps({
     required: true,
     default: 1,
   },
-  position: {
-    type: Object as PropType<{ x: number; y: number; z: number }>,
-    required: false,
-  },
+  position: Object as PropType<{ x: number; y: number; z: number }>,
 });
 
 const { onInit, getMesh } = useMesh(() => {
@@ -31,24 +28,21 @@ const { onInit, getMesh } = useMesh(() => {
     return sphere;
   }
 
-  const { x, y, z } = position;
-  sphere.position = new Vector3(x, y, z);
-
+  sphere.position = xyzToVector3(position);
   return sphere;
 });
 
 watch(
   () => props.position,
   (position) => {
-    const sphere = getMesh();
-    if (!sphere) {
-      return;
-    }
-
     if (!position) {
       return;
     }
 
+    const sphere = getMesh();
+    if (!sphere) {
+      return;
+    }
     sphere.position = xyzToVector3(position);
   },
   {
@@ -56,9 +50,7 @@ watch(
   },
 );
 
-defineExpose({
-  onInit,
-});
+defineExpose({ onInit, getMesh });
 </script>
 
 <template>
