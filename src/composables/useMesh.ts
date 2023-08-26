@@ -14,7 +14,6 @@ export const useMesh = (meshFactory: () => Mesh) => {
 
   provide(babyuewMeshInjectionKey, {
     onInit,
-    mesh,
     getMesh,
   });
 
@@ -26,7 +25,6 @@ export const useMesh = (meshFactory: () => Mesh) => {
 
   return {
     onInit,
-    mesh,
     getMesh,
   };
 };

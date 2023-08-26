@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { MeshBuilder, Vector3 } from "@babylonjs/core";
 import { useMesh } from "../../composables/useMesh";
-import { PropType } from "vue";
+import { PropType, watch } from "vue";
+import { xyzToVector3 } from "../../utils/dataConversion";
 
 const props = defineProps({
   name: {
@@ -20,7 +21,7 @@ const props = defineProps({
   },
 });
 
-const { onInit } = useMesh(() => {
+const { onInit, getMesh } = useMesh(() => {
   const sphere = MeshBuilder.CreateSphere(props.name, {
     diameter: props.diameter,
   });
@@ -35,6 +36,25 @@ const { onInit } = useMesh(() => {
 
   return sphere;
 });
+
+watch(
+  () => props.position,
+  (position) => {
+    const sphere = getMesh();
+    if (!sphere) {
+      return;
+    }
+
+    if (!position) {
+      return;
+    }
+
+    sphere.position = xyzToVector3(position);
+  },
+  {
+    deep: true,
+  },
+);
 
 defineExpose({
   onInit,

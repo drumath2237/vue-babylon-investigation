@@ -7,21 +7,14 @@ import Sphere from "./components/meshes/sphere.vue";
 import DirectionalLight from "./components/lights/directionalLight.vue";
 import { reactive, ref } from "vue";
 
-const boxPos = reactive<{ x: number; y: number; z: number }>({
-  x: 0,
-  y: 0.05,
-  z: 0,
-});
+const boxPos = reactive({ x: 0, y: 0.05, z: 0 });
+const spherePosition = reactive({ x: 0.1, y: 0.05, z: 0 });
 
 const boxSize = ref(0.1);
 
 setTimeout(() => {
-  boxPos.x = -0.1;
-}, 2000);
-
-setTimeout(() => {
-  boxSize.value = 0.2;
-}, 3000);
+  spherePosition.x = -0.1;
+}, 1000);
 </script>
 
 <template>
@@ -45,11 +38,7 @@ setTimeout(() => {
       <StandardMaterial :color="{ r: 0, g: 1, b: 1 }"></StandardMaterial>
     </Box>
 
-    <Sphere
-      :name="'my-sphere'"
-      :diameter="0.1"
-      :position="{ x: 0.1, y: 0.05, z: 0 }"
-    >
+    <Sphere :name="'my-sphere'" :diameter="0.1" :position="spherePosition">
       <StandardMaterial :color="{ r: 1, g: 0, b: 1 }"></StandardMaterial>
     </Sphere>
   </BabylonScene>

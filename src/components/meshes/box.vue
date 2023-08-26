@@ -30,7 +30,6 @@ const { onInit, getMesh } = useMesh(() => {
 
 watch(props.position, (position) => {
   const mesh = getMesh();
-  console.log(mesh);
   if (mesh) {
     mesh.position = xyzToVector3(position);
   }

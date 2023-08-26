@@ -19,7 +19,6 @@ export const babyuewSceneInjectionKey: InjectionKey<BabyuewSceneComponent> =
   Symbol("babyuew-scene-injection-key");
 
 export interface BabyuewMeshComponent extends BabyuewComponent<Mesh> {
-  mesh: Mesh | null;
   getMesh: () => Mesh | null;
 }
 
