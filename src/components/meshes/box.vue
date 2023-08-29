@@ -1,39 +1,39 @@
 <script setup lang="ts">
-import { PropType, watch } from "vue";
+import { watch } from "vue";
 import { useMesh } from "../../composables/useMesh";
-import { MeshBuilder, Vector3 } from "@babylonjs/core";
-import { xyzToVector3 } from "../../utils/dataConversion";
+import { MeshBuilder } from "@babylonjs/core";
+import { arr3ToVector3 } from "../../utils/dataConversion";
 
-const props = defineProps({
-  name: {
-    type: String,
-    required: false,
-    default: () => "box",
-  },
-  position: {
-    type: Object as PropType<{ x: number; y: number; z: number }>,
-    default: () => ({ x: 0, y: 0, z: 0 }),
-  },
-  size: Number,
-});
+const props = defineProps<{
+  name?: string;
+  position?: [number, number, number];
+  size: number;
+}>();
 
 const { onInit, getMesh } = useMesh(() => {
-  const box = MeshBuilder.CreateBox(props.name, { size: props.size });
+  const box = MeshBuilder.CreateBox(props.name ?? "box", { size: props.size });
 
-  const position = props.position;
-  if (position) {
-    box.position = new Vector3(position.x, position.y, position.z);
+  if (props.position) {
+    box.position = arr3ToVector3(props.position);
   }
 
   return box;
 });
 
-watch(props.position, (position) => {
-  const mesh = getMesh();
-  if (mesh) {
-    mesh.position = xyzToVector3(position);
-  }
-});
+watch(
+  () => props.position,
+  (position) => {
+    if (!position) {
+      return;
+    }
+
+    const mesh = getMesh();
+    if (mesh) {
+      mesh.position = arr3ToVector3(position);
+    }
+  },
+  { deep: true },
+);
 
 defineExpose({ onInit });
 </script>
