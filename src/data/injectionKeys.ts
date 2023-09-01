@@ -33,7 +33,7 @@ export const babyuewMaterialInjectionKey: InjectionKey<BabyuewMaterialComponent>
   Symbol("babyuew-material-injection-key");
 
 export interface BabyuewCameraComponent extends BabyuewComponent<Camera> {
-  camera?: Camera;
+  getCamera: () => Camera | null;
 }
 
 export const babyuewCameraInjectionKey: InjectionKey<BabyuewCameraComponent> =

@@ -8,8 +8,9 @@ import {
 
 export const useCamera = (cameraFactory: () => Camera) => {
   const onInit = new EventSystem<Camera>();
-  let camera: Camera | undefined = undefined;
-  provide(babyuewCameraInjectionKey, { onInit, camera });
+  let camera: Camera | null = null;
+  const getCamera = () => camera;
+  provide(babyuewCameraInjectionKey, { onInit, getCamera });
 
   const injectedScene = inject(babyuewSceneInjectionKey);
   injectedScene?.onInit.addListener(() => {
@@ -18,5 +19,5 @@ export const useCamera = (cameraFactory: () => Camera) => {
     onInit.notify(camera);
   });
 
-  return { onInit, camera };
+  return { onInit, getCamera };
 };

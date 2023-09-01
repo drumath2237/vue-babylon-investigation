@@ -1,39 +1,24 @@
 <script setup lang="ts">
-import { PropType } from "vue";
 import { BabyuewCameraComponent } from "../../data/injectionKeys";
 import { useCamera } from "../../composables/useCamera";
-import { ArcRotateCamera, Vector3 } from "@babylonjs/core";
+import { ArcRotateCamera } from "@babylonjs/core";
+import { arr3ToVector3 } from "../../utils/dataConversion";
 
-const props = defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-  alpha: {
-    type: Number,
-    required: true,
-  },
-  beta: {
-    type: Number,
-    required: true,
-  },
-  radius: {
-    type: Number,
-    required: true,
-  },
-  target: {
-    type: Object as PropType<{ x: number; y: number; z: number }>,
-    required: true,
-  },
-});
+const props = defineProps<{
+  name?: string;
+  alpha: number;
+  beta: number;
+  radius: number;
+  target: [number, number, number];
+}>();
 
-const { camera, onInit } = useCamera(() => {
+const { getCamera, onInit } = useCamera(() => {
   const camera = new ArcRotateCamera(
-    props.name,
+    props.name ?? "arc rotated caera",
     props.alpha,
     props.beta,
     props.radius,
-    new Vector3(props.target.x, props.target.y, props.target.z),
+    arr3ToVector3(props.target),
   );
   camera.attachControl();
   camera.minZ = 0.01;
@@ -42,7 +27,7 @@ const { camera, onInit } = useCamera(() => {
   return camera;
 });
 
-defineExpose<BabyuewCameraComponent>({ onInit, camera });
+defineExpose<BabyuewCameraComponent>({ onInit, getCamera });
 </script>
 
 <template>

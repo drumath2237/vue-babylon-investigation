@@ -22,7 +22,7 @@ setTimeout(() => {
       :alpha="Math.PI / 3"
       :beta="Math.PI / 3"
       :radius="0.5"
-      :target="{ x: 0, y: 0.05, z: 0 }"
+      :target="[0, 0.05, 0]"
     >
     </ArcRotateCamera>
 
