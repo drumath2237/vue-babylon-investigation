@@ -37,11 +37,11 @@ setTimeout(() => {
     ></DirectionalLight>
 
     <Box :name="'my-box'" :position="boxPos" :size="boxSize">
-      <StandardMaterial :color="{ r: 0, g: 1, b: 1 }"></StandardMaterial>
+      <StandardMaterial :color="[0, 1, 1]"></StandardMaterial>
     </Box>
 
     <Sphere :name="'my-sphere'" :diameter="0.1" :position="spherePosition">
-      <StandardMaterial :color="{ r: 1, g: 0, b: 1 }"></StandardMaterial>
+      <StandardMaterial :color="[1, 0, 1]"></StandardMaterial>
     </Sphere>
   </BabylonScene>
 </template>

@@ -1,27 +1,22 @@
 <script setup lang="ts">
-import { Color3, StandardMaterial } from "@babylonjs/core";
+import { StandardMaterial } from "@babylonjs/core";
 import { useMaterial } from "../../composables/useMaterial";
-import { PropType } from "vue";
+import { arr3ToColor3 } from "../../utils/dataConversion";
 
-const props = defineProps({
-  name: {
-    type: String,
-    required: false,
-    default: () => "standard material",
-  },
-  color: {
-    type: Object as PropType<{ r: number; g: number; b: number }>,
-    required: true,
-  },
-});
+const props = defineProps<{
+  name?: string;
+  color?: [number, number, number];
+}>();
 
 const { onInit, material } = useMaterial(() => {
-  const standardMaterial = new StandardMaterial(props.name);
-  standardMaterial.diffuseColor = new Color3(
-    props.color.r,
-    props.color.g,
-    props.color.b,
+  const standardMaterial = new StandardMaterial(
+    props.name ?? "standard material",
   );
+
+  if (props.color) {
+    standardMaterial.diffuseColor = arr3ToColor3(props.color);
+  }
+
   return standardMaterial;
 });
 
