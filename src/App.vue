@@ -7,13 +7,13 @@ import Sphere from "./components/meshes/sphere.vue";
 import DirectionalLight from "./components/lights/directionalLight.vue";
 import { reactive, ref } from "vue";
 
-const spherePosition = reactive({ x: 0.1, y: 0.05, z: 0 });
+const spherePosition = reactive<[number, number, number]>([0.1, 0.05, 0]);
 const boxPos = reactive<[number, number, number]>([0, 0.05, 0]);
 
 const boxSize = ref(0.1);
 
 setTimeout(() => {
-  spherePosition.x = 0;
+  spherePosition[0] = 0;
   boxPos[0] = -0.1;
   boxPos[2] = 0.1;
 }, 1000);

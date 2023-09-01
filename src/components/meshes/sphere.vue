@@ -1,25 +1,17 @@
 <script setup lang="ts">
 import { MeshBuilder } from "@babylonjs/core";
 import { useMesh } from "../../composables/useMesh";
-import { PropType, watch } from "vue";
-import { xyzToVector3 } from "../../utils/dataConversion";
+import { watch } from "vue";
+import { arr3ToVector3 } from "../../utils/dataConversion";
 
-const props = defineProps({
-  name: {
-    type: String,
-    required: false,
-    default: "sphere",
-  },
-  diameter: {
-    type: Number,
-    required: true,
-    default: 1,
-  },
-  position: Object as PropType<{ x: number; y: number; z: number }>,
-});
+const props = defineProps<{
+  name?: string;
+  diameter: number;
+  position?: [number, number, number];
+}>();
 
 const { onInit, getMesh } = useMesh(() => {
-  const sphere = MeshBuilder.CreateSphere(props.name, {
+  const sphere = MeshBuilder.CreateSphere(props.name ?? "sphere", {
     diameter: props.diameter,
   });
 
@@ -28,7 +20,7 @@ const { onInit, getMesh } = useMesh(() => {
     return sphere;
   }
 
-  sphere.position = xyzToVector3(position);
+  sphere.position = arr3ToVector3(position);
   return sphere;
 });
 
@@ -43,7 +35,7 @@ watch(
     if (!sphere) {
       return;
     }
-    sphere.position = xyzToVector3(position);
+    sphere.position = arr3ToVector3(position);
   },
   {
     deep: true,
