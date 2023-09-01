@@ -2,13 +2,15 @@
 import { StandardMaterial } from "@babylonjs/core";
 import { useMaterial } from "../../composables/useMaterial";
 import { arr3ToColor3 } from "../../utils/dataConversion";
+import { BabyuewMaterialComponent } from "../../data/injectionKeys";
+import { watch } from "vue";
 
 const props = defineProps<{
   name?: string;
   color?: [number, number, number];
 }>();
 
-const { onInit, material } = useMaterial(() => {
+const { onInit, getMaterial } = useMaterial(() => {
   const standardMaterial = new StandardMaterial(
     props.name ?? "standard material",
   );
@@ -20,7 +22,24 @@ const { onInit, material } = useMaterial(() => {
   return standardMaterial;
 });
 
-defineExpose({ onInit, material });
+watch(
+  () => props.color,
+  (color) => {
+    const material = getMaterial();
+    if (!material || !color) {
+      return;
+    }
+
+    const standardMaterial = material as StandardMaterial;
+
+    standardMaterial.diffuseColor = arr3ToColor3(color);
+  },
+  {
+    deep: true,
+  },
+);
+
+defineExpose<BabyuewMaterialComponent>({ onInit, getMaterial });
 </script>
 
 <template>

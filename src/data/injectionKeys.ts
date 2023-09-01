@@ -26,7 +26,7 @@ export const babyuewMeshInjectionKey: InjectionKey<BabyuewMeshComponent> =
   Symbol("babyuew-mesh-injection-key");
 
 export interface BabyuewMaterialComponent extends BabyuewComponent<Material> {
-  material?: Material;
+  getMaterial: () => Material | null;
 }
 
 export const babyuewMaterialInjectionKey: InjectionKey<BabyuewMaterialComponent> =

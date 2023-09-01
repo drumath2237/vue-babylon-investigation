@@ -8,8 +8,9 @@ import {
 
 export const useMaterial = (materialFactory: () => Material) => {
   const onInit = new EventSystem<Material>();
-  let material: Material | undefined = undefined;
-  provide(babyuewMaterialInjectionKey, { onInit, material });
+  let material: Material | null = null;
+  const getMaterial = () => material;
+  provide(babyuewMaterialInjectionKey, { onInit, getMaterial });
 
   const injectedMesh = inject(babyuewMeshInjectionKey);
   injectedMesh?.onInit.addListener(({ detail }) => {
@@ -19,5 +20,5 @@ export const useMaterial = (materialFactory: () => Material) => {
     onInit.notify(createdMaterial);
   });
 
-  return { onInit, material };
+  return { onInit, getMaterial };
 };

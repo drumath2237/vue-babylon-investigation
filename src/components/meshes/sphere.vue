@@ -3,6 +3,7 @@ import { MeshBuilder } from "@babylonjs/core";
 import { useMesh } from "../../composables/useMesh";
 import { watch } from "vue";
 import { arr3ToVector3 } from "../../utils/dataConversion";
+import { BabyuewMeshComponent } from "../../data/injectionKeys";
 
 const props = defineProps<{
   name?: string;
@@ -42,7 +43,7 @@ watch(
   },
 );
 
-defineExpose({ onInit, getMesh });
+defineExpose<BabyuewMeshComponent>({ onInit, getMesh });
 </script>
 
 <template>

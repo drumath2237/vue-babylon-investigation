@@ -5,17 +5,13 @@ import StandardMaterial from "./components/materials/standardMaterial.vue";
 import ArcRotateCamera from "./components/cameras/arcRotateCamera.vue";
 import Sphere from "./components/meshes/sphere.vue";
 import DirectionalLight from "./components/lights/directionalLight.vue";
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 
-const spherePosition = reactive<[number, number, number]>([0.1, 0.05, 0]);
-const boxPos = reactive<[number, number, number]>([0, 0.05, 0]);
-
-const boxSize = ref(0.1);
+const sphereColor = reactive<[number, number, number]>([1, 0, 1]);
 
 setTimeout(() => {
-  spherePosition[0] = 0;
-  boxPos[0] = -0.1;
-  boxPos[2] = 0.1;
+  sphereColor[2] = 0;
+  sphereColor[1] = 1;
 }, 1000);
 </script>
 
@@ -36,12 +32,12 @@ setTimeout(() => {
       :intensity="1.2"
     ></DirectionalLight>
 
-    <Box :name="'my-box'" :position="boxPos" :size="boxSize">
+    <Box :name="'my-box'" :position="[-0.1, 0.05, 0]" :size="0.1">
       <StandardMaterial :color="[0, 1, 1]"></StandardMaterial>
     </Box>
 
-    <Sphere :name="'my-sphere'" :diameter="0.1" :position="spherePosition">
-      <StandardMaterial :color="[1, 0, 1]"></StandardMaterial>
+    <Sphere :name="'my-sphere'" :diameter="0.1" :position="[0, 0.05, 0]">
+      <StandardMaterial :color="sphereColor"></StandardMaterial>
     </Sphere>
   </BabylonScene>
 </template>
