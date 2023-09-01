@@ -3,6 +3,7 @@ import { BabyuewCameraComponent } from "../../data/injectionKeys";
 import { useCamera } from "../../composables/useCamera";
 import { ArcRotateCamera } from "@babylonjs/core";
 import { arr3ToVector3 } from "../../utils/dataConversion";
+import { watch } from "vue";
 
 const props = defineProps<{
   name?: string;
@@ -26,6 +27,42 @@ const { getCamera, onInit } = useCamera(() => {
 
   return camera;
 });
+
+// todo: 複数の値をwatchするために一緒くたにまとめているが
+//       パフォーマンスは良くない
+watch(
+  () => [props.alpha, props.beta, props.radius],
+  ([alpha, beta, radius]) => {
+    const camera = getCamera();
+    if (!camera) {
+      return;
+    }
+
+    const arcRotatedCamera = camera as ArcRotateCamera;
+    arcRotatedCamera.alpha = alpha;
+    arcRotatedCamera.beta = beta;
+    arcRotatedCamera.radius = radius;
+  },
+  {
+    deep: true,
+  },
+);
+
+watch(
+  () => props.target,
+  (traget) => {
+    const camera = getCamera();
+    if (!camera) {
+      return;
+    }
+
+    const arcRotatedCamera = camera as ArcRotateCamera;
+    arcRotatedCamera.target = arr3ToVector3(traget);
+  },
+  {
+    deep: true,
+  },
+);
 
 defineExpose<BabyuewCameraComponent>({ onInit, getCamera });
 </script>

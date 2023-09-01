@@ -7,11 +7,10 @@ import Sphere from "./components/meshes/sphere.vue";
 import DirectionalLight from "./components/lights/directionalLight.vue";
 import { reactive } from "vue";
 
-const sphereColor = reactive<[number, number, number]>([1, 0, 1]);
+const target = reactive<[number, number, number]>([0, 0.05, 0]);
 
 setTimeout(() => {
-  sphereColor[2] = 0;
-  sphereColor[1] = 1;
+  target[0] = 0.1;
 }, 1000);
 </script>
 
@@ -22,7 +21,7 @@ setTimeout(() => {
       :alpha="Math.PI / 3"
       :beta="Math.PI / 3"
       :radius="0.5"
-      :target="[0, 0.05, 0]"
+      :target="target"
     >
     </ArcRotateCamera>
 
@@ -37,7 +36,7 @@ setTimeout(() => {
     </Box>
 
     <Sphere :name="'my-sphere'" :diameter="0.1" :position="[0, 0.05, 0]">
-      <StandardMaterial :color="sphereColor"></StandardMaterial>
+      <StandardMaterial :color="[1, 0, 1]"></StandardMaterial>
     </Sphere>
   </BabylonScene>
 </template>
