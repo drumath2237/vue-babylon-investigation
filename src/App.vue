@@ -5,13 +5,16 @@ import StandardMaterial from "./components/materials/standardMaterial.vue";
 import ArcRotateCamera from "./components/cameras/arcRotateCamera.vue";
 import Sphere from "./components/meshes/sphere.vue";
 import DirectionalLight from "./components/lights/directionalLight.vue";
-import { reactive } from "vue";
+import { ref } from "vue";
 
-const target = reactive<[number, number, number]>([0, 0.05, 0]);
+const intensity = ref(1.2);
 
-setTimeout(() => {
-  target[0] = 0.1;
-}, 1000);
+let time = 0;
+
+setInterval(() => {
+  time += 0.01;
+  intensity.value = Math.sin(time) + 1;
+}, 10);
 </script>
 
 <template>
@@ -21,14 +24,14 @@ setTimeout(() => {
       :alpha="Math.PI / 3"
       :beta="Math.PI / 3"
       :radius="0.5"
-      :target="target"
+      :target="[0, 0.05, 0]"
     >
     </ArcRotateCamera>
 
     <DirectionalLight
       :name="'light'"
       :direction="[0.25, -1, -0.6]"
-      :intensity="1.2"
+      :intensity="intensity"
     ></DirectionalLight>
 
     <Box :name="'my-box'" :position="[-0.1, 0.05, 0]" :size="0.1">

@@ -3,6 +3,7 @@ import { DirectionalLight } from "@babylonjs/core";
 import { useLight } from "../../composables/useLight";
 import { arr3ToVector3 } from "../../utils/dataConversion";
 import { BabyuewLightComponent } from "../../data/injectionKeys";
+import { watch } from "vue";
 
 const props = defineProps<{
   name?: string;
@@ -23,6 +24,46 @@ const { getLight, onInit } = useLight((scene) => {
 
   return light;
 });
+
+watch(
+  () => props.direction,
+  (direction) => {
+    const light = getLight();
+    if (!light || !(light instanceof DirectionalLight)) {
+      return;
+    }
+
+    if (!direction) {
+      return;
+    }
+
+    if (light instanceof DirectionalLight) {
+      light.direction = arr3ToVector3(direction);
+    }
+  },
+  {
+    deep: true,
+  },
+);
+
+watch(
+  () => props.intensity,
+  (intensity) => {
+    if (!intensity) {
+      return;
+    }
+
+    const light = getLight();
+    if (!light) {
+      return;
+    }
+
+    light.intensity = intensity;
+  },
+  {
+    deep: true,
+  },
+);
 
 defineExpose<BabyuewLightComponent>({ getLight, onInit });
 </script>
