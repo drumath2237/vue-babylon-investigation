@@ -8,8 +8,9 @@ import {
 
 export const useLight = (factory: (scene: Scene) => Light) => {
   const onInit = new EventSystem<Light>();
-  let light: Light | undefined = undefined;
-  provide(babyuewLightInjectionKey, { onInit, light });
+  let light: Light | null = null;
+  const getLight = () => light;
+  provide(babyuewLightInjectionKey, { onInit, getLight });
 
   const babyuewScene = inject(babyuewSceneInjectionKey);
   babyuewScene?.onInit.addListener(() => {
@@ -19,6 +20,6 @@ export const useLight = (factory: (scene: Scene) => Light) => {
 
   return {
     onInit,
-    light,
+    getLight,
   };
 };
