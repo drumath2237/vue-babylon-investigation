@@ -1,12 +1,14 @@
 import { Material } from "@babylonjs/core";
-import { EventSystem } from "../utils/eventSystem";
+import { EventSystem } from "../../utils/eventSystem";
 import { inject, provide } from "vue";
 import {
   babyuewMaterialInjectionKey,
   babyuewMeshInjectionKey,
-} from "../data/injectionKeys";
+} from "../../data/injectionKeys";
 
-export const useMaterial = (materialFactory: () => Material) => {
+export const createMaterialComponentCore = (
+  materialFactory: () => Material,
+) => {
   const onInit = new EventSystem<Material>();
   let material: Material | null = null;
   const getMaterial = () => material;

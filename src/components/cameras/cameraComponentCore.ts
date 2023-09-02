@@ -1,12 +1,15 @@
 import { Camera } from "@babylonjs/core";
-import { EventSystem } from "../utils/eventSystem";
+import { EventSystem } from "../../utils/eventSystem";
 import { inject, provide } from "vue";
 import {
+  BabyuewCameraComponent,
   babyuewCameraInjectionKey,
   babyuewSceneInjectionKey,
-} from "../data/injectionKeys";
+} from "../../data/injectionKeys";
 
-export const useCamera = (cameraFactory: () => Camera) => {
+export const createCameraComponentCore = (
+  cameraFactory: () => Camera,
+): BabyuewCameraComponent => {
   const onInit = new EventSystem<Camera>();
   let camera: Camera | null = null;
   const getCamera = () => camera;

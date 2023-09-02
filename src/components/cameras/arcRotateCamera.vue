@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { BabyuewCameraComponent } from "../../data/injectionKeys";
-import { useCamera } from "../../composables/useCamera";
+import { createCameraComponentCore } from "./cameraComponentCore";
 import { ArcRotateCamera } from "@babylonjs/core";
 import { arr3ToVector3 } from "../../utils/dataConversion";
 import { watch } from "vue";
@@ -13,7 +13,7 @@ const props = defineProps<{
   target: [number, number, number];
 }>();
 
-const { getCamera, onInit } = useCamera(() => {
+const { getCamera, onInit } = createCameraComponentCore(() => {
   const camera = new ArcRotateCamera(
     props.name ?? "arc rotated caera",
     props.alpha,

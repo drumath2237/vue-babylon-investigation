@@ -1,12 +1,12 @@
 import { Light, Scene } from "@babylonjs/core";
-import { EventSystem } from "../utils/eventSystem";
+import { EventSystem } from "../../utils/eventSystem";
 import { inject, provide } from "vue";
 import {
   babyuewSceneInjectionKey,
   babyuewLightInjectionKey,
-} from "../data/injectionKeys";
+} from "../../data/injectionKeys";
 
-export const useLight = (factory: (scene: Scene) => Light) => {
+export const createLightComponentCore = (factory: (scene: Scene) => Light) => {
   const onInit = new EventSystem<Light>();
   let light: Light | null = null;
   const getLight = () => light;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch } from "vue";
-import { useMesh } from "../../composables/useMesh";
+import { createMeshComponentCore } from "./meshComponentCore";
 import { MeshBuilder } from "@babylonjs/core";
 import { arr3ToVector3 } from "../../utils/dataConversion";
 import { BabyuewMeshComponent } from "../../data/injectionKeys";
@@ -11,7 +11,7 @@ const props = defineProps<{
   size: number;
 }>();
 
-const { onInit, getMesh } = useMesh(() => {
+const { onInit, getMesh } = createMeshComponentCore(() => {
   const box = MeshBuilder.CreateBox(props.name ?? "box", { size: props.size });
 
   if (props.position) {

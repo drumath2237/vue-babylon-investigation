@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DirectionalLight } from "@babylonjs/core";
-import { useLight } from "../../composables/useLight";
+import { createLightComponentCore } from "./lightComponentCore";
 import { arr3ToVector3 } from "../../utils/dataConversion";
 import { BabyuewLightComponent } from "../../data/injectionKeys";
 import { watch } from "vue";
@@ -11,7 +11,7 @@ const props = defineProps<{
   intensity?: number;
 }>();
 
-const { getLight, onInit } = useLight((scene) => {
+const { getLight, onInit } = createLightComponentCore((scene) => {
   const light = new DirectionalLight(
     props.name ?? "light",
     arr3ToVector3(props.direction),

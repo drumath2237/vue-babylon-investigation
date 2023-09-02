@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { StandardMaterial } from "@babylonjs/core";
-import { useMaterial } from "../../composables/useMaterial";
+import { createMaterialComponentCore } from "./materialComponentCore";
 import { arr3ToColor3 } from "../../utils/dataConversion";
 import { BabyuewMaterialComponent } from "../../data/injectionKeys";
 import { watch } from "vue";
@@ -10,7 +10,7 @@ const props = defineProps<{
   color?: [number, number, number];
 }>();
 
-const { onInit, getMaterial } = useMaterial(() => {
+const { onInit, getMaterial } = createMaterialComponentCore(() => {
   const standardMaterial = new StandardMaterial(
     props.name ?? "standard material",
   );

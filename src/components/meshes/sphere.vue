@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { MeshBuilder } from "@babylonjs/core";
-import { useMesh } from "../../composables/useMesh";
+import { createMeshComponentCore } from "./meshComponentCore";
 import { watch } from "vue";
 import { arr3ToVector3 } from "../../utils/dataConversion";
 import { BabyuewMeshComponent } from "../../data/injectionKeys";
@@ -11,7 +11,7 @@ const props = defineProps<{
   position?: [number, number, number];
 }>();
 
-const { onInit, getMesh } = useMesh(() => {
+const { onInit, getMesh } = createMeshComponentCore(() => {
   const sphere = MeshBuilder.CreateSphere(props.name ?? "sphere", {
     diameter: props.diameter,
   });
