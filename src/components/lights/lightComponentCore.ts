@@ -13,8 +13,8 @@ export const createLightComponentCore = (factory: (scene: Scene) => Light) => {
   provide(babyuewLightInjectionKey, { onInit, getLight });
 
   const babyuewScene = inject(babyuewSceneInjectionKey);
-  babyuewScene?.onInit.addListener(() => {
-    light = factory(babyuewScene.scene!);
+  babyuewScene?.onInit.addListener((ev) => {
+    light = factory(ev.detail);
     onInit.notify(light);
   });
 
