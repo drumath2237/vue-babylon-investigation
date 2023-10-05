@@ -3,7 +3,10 @@ import { onMounted, provide, ref } from "vue";
 import { useBabyuewScene } from "../composables/useBabyuewScene";
 import { Engine, Scene } from "@babylonjs/core";
 import { EventSystem } from "../utils/eventSystem";
-import { BabyuewSceneComponent, babyuewSceneInjectionKey } from "../data/injectionKeys";
+import {
+  BabyuewSceneComponent,
+  babyuewSceneInjectionKey,
+} from "../data/injectionKeys";
 
 const props = defineProps<{
   antialias: boolean;
