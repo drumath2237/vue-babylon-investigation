@@ -21,7 +21,7 @@ export const useBabyuewScene = () => {
   };
 
   const initScene = (scene: Scene) => {
-    if (babyuewScene.value === null) {
+    if (babyuewScene.value !== null) {
       console.error("scene has already inited");
       return;
     }

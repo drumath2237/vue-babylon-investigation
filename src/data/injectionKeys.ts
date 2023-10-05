@@ -1,18 +1,13 @@
 import { InjectionKey } from "vue";
 import { EventSystem } from "../utils/eventSystem";
-import { Mesh, Material, Camera, Engine, Scene, Light } from "@babylonjs/core";
+import { Mesh, Material, Camera, Scene, Light } from "@babylonjs/core";
 
 export interface BabyuewComponent<T> {
   onInit: EventSystem<T>;
 }
 
-export interface BabyuewSceneComponent
-  extends BabyuewComponent<{
-    scene?: Scene;
-    engine?: Engine;
-  }> {
-  engine?: Engine;
-  scene?: Scene;
+export interface BabyuewSceneComponent extends BabyuewComponent<Scene> {
+  getScene: () => Scene | null;
 }
 
 export const babyuewSceneInjectionKey: InjectionKey<BabyuewSceneComponent> =

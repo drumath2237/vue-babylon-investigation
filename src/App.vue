@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BabylonScene from "./components/babylonScene.vue";
+import BabyuewScene from "./components/babyuewScene.vue";
 import Box from "./components/meshes/box.vue";
 import StandardMaterial from "./components/materials/standardMaterial.vue";
 import ArcRotateCamera from "./components/cameras/arcRotateCamera.vue";
@@ -18,7 +18,7 @@ setInterval(() => {
 </script>
 
 <template>
-  <BabylonScene :antialias="true">
+  <BabyuewScene antialias>
     <ArcRotateCamera
       :name="'camera'"
       :alpha="Math.PI / 3"
@@ -41,5 +41,5 @@ setInterval(() => {
     <Sphere :name="'my-sphere'" :diameter="0.1" :position="[0, 0.05, 0]">
       <StandardMaterial :color="[1, 0, 1]"></StandardMaterial>
     </Sphere>
-  </BabylonScene>
+  </BabyuewScene>
 </template>
