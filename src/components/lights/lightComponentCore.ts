@@ -1,10 +1,8 @@
 import { Light, Scene } from "@babylonjs/core";
 import { EventSystem } from "../../utils/eventSystem";
-import { inject, provide } from "vue";
-import {
-  babyuewSceneInjectionKey,
-  babyuewLightInjectionKey,
-} from "../../data/injectionKeys";
+import { provide } from "vue";
+import { babyuewLightInjectionKey } from "../../data/injectionKeys";
+import { useBabyuewScene } from "../../composables/useBabyuewScene";
 
 export const createLightComponentCore = (factory: (scene: Scene) => Light) => {
   const onInit = new EventSystem<Light>();
@@ -12,9 +10,9 @@ export const createLightComponentCore = (factory: (scene: Scene) => Light) => {
   const getLight = () => light;
   provide(babyuewLightInjectionKey, { onInit, getLight });
 
-  const babyuewScene = inject(babyuewSceneInjectionKey);
-  babyuewScene?.onInit.addListener((ev) => {
-    light = factory(ev.detail);
+  const { onSceneInit } = useBabyuewScene();
+  onSceneInit((scene) => {
+    light = factory(scene);
     onInit.notify(light);
   });
 
