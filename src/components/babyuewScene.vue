@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, provide, ref } from "vue";
-import { useBabyuewScene } from "../composables/useBabyuewScene";
+import { useBabyuewSceneForInternals } from "../composables/useBabyuewScene";
 import { Engine, Scene } from "@babylonjs/core";
 import { EventSystem } from "../utils/eventSystem";
 import {
@@ -40,7 +40,7 @@ onMounted(() => {
     engine.resize();
   });
 
-  const { initScene } = useBabyuewScene();
+  const { initScene } = useBabyuewSceneForInternals();
 
   initScene(scene);
   onInit.notify(scene);

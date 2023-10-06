@@ -6,10 +6,6 @@ const babyuewScene = shallowRef<Scene | null>(null);
 type SceneFunc = (scene: Scene) => void;
 const initCallbacks = Array<SceneFunc>();
 
-/**
- * a composable for scene
- * @returns tools for treat scene
- */
 export const useBabyuewScene = () => {
   const onSceneInit = (callback: SceneFunc) => {
     if (babyuewScene.value === null) {
@@ -20,6 +16,20 @@ export const useBabyuewScene = () => {
     callback(babyuewScene.value);
   };
 
+  const readonlyScene = shallowReadonly(babyuewScene);
+
+  return {
+    onSceneInit,
+    babyuewScene: readonlyScene,
+  };
+};
+
+/**
+ * a composable for scene
+ * this composable is for BabyuewJS internal implementations
+ * @returns tools for treat scene
+ */
+export const useBabyuewSceneForInternals = () => {
   const initScene = (scene: Scene) => {
     if (babyuewScene.value !== null) {
       console.error("scene has already inited");
@@ -33,9 +43,7 @@ export const useBabyuewScene = () => {
     babyuewScene.value = scene;
   };
 
-  const readonlyScene = shallowReadonly(babyuewScene);
-
-  watch(readonlyScene, (scene) => {
+  watch(babyuewScene, (scene) => {
     if (scene) {
       initCallbacks.forEach((cb) => {
         cb(scene);
@@ -46,12 +54,5 @@ export const useBabyuewScene = () => {
   return {
     initScene,
     forceReplaceScene,
-    babyuewScene: readonlyScene,
-
-    /**
-     * init event callback
-     * @param callback function called when the scene inited
-     */
-    onSceneInit,
   };
 };
