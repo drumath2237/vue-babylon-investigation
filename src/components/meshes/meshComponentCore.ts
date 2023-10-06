@@ -1,10 +1,8 @@
 import { Mesh } from "@babylonjs/core";
 import { EventSystem } from "../../utils/eventSystem";
-import { inject, provide } from "vue";
-import {
-  babyuewMeshInjectionKey,
-  babyuewSceneInjectionKey,
-} from "../../data/injectionKeys";
+import { provide } from "vue";
+import { babyuewMeshInjectionKey } from "../../data/injectionKeys";
+import { useBabyuewScene } from "../../composables/useBabyuewScene";
 
 export const createMeshComponentCore = (meshFactory: () => Mesh) => {
   const onInit = new EventSystem<Mesh>();
@@ -17,8 +15,8 @@ export const createMeshComponentCore = (meshFactory: () => Mesh) => {
     getMesh,
   });
 
-  const babyuewScene = inject(babyuewSceneInjectionKey);
-  babyuewScene?.onInit.addListener(() => {
+  const { onSceneInit } = useBabyuewScene();
+  onSceneInit(() => {
     mesh = meshFactory();
     onInit.notify(mesh);
   });

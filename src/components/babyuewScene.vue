@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import { onMounted, provide, ref } from "vue";
-import { useBabyuewScene } from "../composables/useBabyuewScene";
+import { onMounted, ref } from "vue";
+import { useBabyuewSceneForInternals } from "../composables/useBabyuewScene";
 import { Engine, Scene } from "@babylonjs/core";
-import { EventSystem } from "../utils/eventSystem";
-import {
-  BabyuewSceneComponent,
-  babyuewSceneInjectionKey,
-} from "../data/injectionKeys";
 
 const props = defineProps<{
   antialias: boolean;
@@ -14,15 +9,6 @@ const props = defineProps<{
 
 const renderCanvas = ref<HTMLCanvasElement>();
 let scene: Scene | null = null;
-const getScene = () => scene;
-const onInit = new EventSystem<Scene>();
-
-provide(babyuewSceneInjectionKey, { getScene, onInit });
-
-defineExpose<BabyuewSceneComponent>({
-  getScene,
-  onInit,
-});
 
 onMounted(() => {
   if (!renderCanvas.value) {
@@ -40,10 +26,8 @@ onMounted(() => {
     engine.resize();
   });
 
-  const { initScene } = useBabyuewScene();
-
+  const { initScene } = useBabyuewSceneForInternals();
   initScene(scene);
-  onInit.notify(scene);
 });
 </script>
 
