@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import BabyuewScene from "./components/babyuewScene.vue";
-import Box from "./components/meshes/box.vue";
-import StandardMaterial from "./components/materials/standardMaterial.vue";
-import ArcRotateCamera from "./components/cameras/arcRotateCamera.vue";
-import Sphere from "./components/meshes/sphere.vue";
-import DirectionalLight from "./components/lights/directionalLight.vue";
+import {
+  ArcRotateCamera,
+  DirectionalLight,
+  Box,
+  StandardMaterial,
+  Sphere,
+  BabyuewScene,
+} from "./components";
 import { ref } from "vue";
 
 const intensity = ref(1.2);
@@ -19,20 +21,10 @@ setInterval(() => {
 
 <template>
   <BabyuewScene antialias>
-    <ArcRotateCamera
-      :name="'camera'"
-      :alpha="Math.PI / 3"
-      :beta="Math.PI / 3"
-      :radius="0.5"
-      :target="[0, 0.05, 0]"
-    >
+    <ArcRotateCamera :name="'camera'" :alpha="Math.PI / 3" :beta="Math.PI / 3" :radius="0.5" :target="[0, 0.05, 0]">
     </ArcRotateCamera>
 
-    <DirectionalLight
-      :name="'light'"
-      :direction="[0.25, -1, -0.6]"
-      :intensity="intensity"
-    ></DirectionalLight>
+    <DirectionalLight :name="'light'" :direction="[0.25, -1, -0.6]" :intensity="intensity"></DirectionalLight>
 
     <Box :name="'my-box'" :position="[-0.1, 0.05, 0]" :size="0.1">
       <StandardMaterial :color="[0, 1, 1]"></StandardMaterial>
