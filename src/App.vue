@@ -21,10 +21,20 @@ setInterval(() => {
 
 <template>
   <BabyuewScene antialias>
-    <ArcRotateCamera :name="'camera'" :alpha="Math.PI / 3" :beta="Math.PI / 3" :radius="0.5" :target="[0, 0.05, 0]">
+    <ArcRotateCamera
+      :name="'camera'"
+      :alpha="Math.PI / 3"
+      :beta="Math.PI / 3"
+      :radius="0.5"
+      :target="[0, 0.05, 0]"
+    >
     </ArcRotateCamera>
 
-    <DirectionalLight :name="'light'" :direction="[0.25, -1, -0.6]" :intensity="intensity"></DirectionalLight>
+    <DirectionalLight
+      :name="'light'"
+      :direction="[0.25, -1, -0.6]"
+      :intensity="intensity"
+    ></DirectionalLight>
 
     <Box :name="'my-box'" :position="[-0.1, 0.05, 0]" :size="0.1">
       <StandardMaterial :color="[0, 1, 1]"></StandardMaterial>
