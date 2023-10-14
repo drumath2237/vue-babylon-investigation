@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import BabyuewScene from "./components/babyuewScene.vue";
-import Box from "./components/meshes/box.vue";
-import StandardMaterial from "./components/materials/standardMaterial.vue";
-import ArcRotateCamera from "./components/cameras/arcRotateCamera.vue";
-import Sphere from "./components/meshes/sphere.vue";
-import DirectionalLight from "./components/lights/directionalLight.vue";
+import {
+  ArcRotateCamera,
+  DirectionalLight,
+  Box,
+  StandardMaterial,
+  Sphere,
+  BabyuewScene,
+} from "./components";
 import { ref } from "vue";
 
 const intensity = ref(1.2);
